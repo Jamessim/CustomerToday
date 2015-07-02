@@ -1,40 +1,42 @@
 <head>
   <title>Customer Today</title>
-  <link href="//cdn.muicss.com/mui-0.1.14/css/mui.min.css" rel="stylesheet" type="text/css" />
-  <script src="//cdn.muicss.com/mui-0.1.14/js/mui.min.js"></script>
 </head>
 
 <body>
-  <div class="mui-dropdown">
-    <button class="mui-btn mui-btn-primary" data-mui-toggle="dropdown">
-      Customer Today
-      <span class="mui-caret"></span>
-    </button>
-    <ul class="mui-dropdown-menu">
-      <li><a href="#">Customer Yesterday</a></li>
-      <li><a href="#">Customer Last Week</a></li>
-      <li><a href="#">Customer Last Month</a></li>
-    </ul>
-  </div>
-  <div class="mui-container-fluid">
-    <svg id="svg">
-      {{> customerSvg}}
-    </svg>
-    <section class="randomReviews">
-      <ul>
-        {{#each reviews}}
-          {{> review}}
-        {{/each}}
-      </ul>
-    </section>
+  <div class="container">
+    <div class="row">
+
+      <div class="col s12 m4 l3">
+        <div id="svg" class="angry">
+          {{> customerSvg}}
+        </div>
+        <ul id="dropdown2" class="dropdown-content">
+          <li><a href="#!">Customer Yesterday</a></li>
+          <li><a href="#!">Customer Last Week</a></li>
+          <li><a href="#!">Customer Last Month</a></li>
+        </ul>
+        <a class="btn dropdown-button" href="#!" data-activates="dropdown2">Customer Today<i class="mdi-navigation-arrow-drop-down right"></i></a>
+      </div>
+
+      <div class="col s12 m8 l9"> <!-- Note that "m8 l9" was added -->
+        <section class="randomReviews">
+          <ul>
+            {{#each reviews}}
+              {{> review}}
+            {{/each}}
+          </ul>
+        </section>
+      </div>
+
+    </div>
   </div>
 </body>
 
 <template name="review">
-  <div class="mui-panel">
+  <div class="card-panel">
     <small>{{averageRating}}</small>
-    <small>{{platform}}</small>
     <small>{{date}}</small>
+    <small>via {{platform}}</small>
     <p>{{body}}</p>
   </div>
 </template>

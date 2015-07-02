@@ -7,3 +7,9 @@
 .randomReviews {
   width: 100%;
 }
+
+.angry svg {
+  width: 200px;
+  height: 200px;
+  background-color: #FF9B9F;
+}

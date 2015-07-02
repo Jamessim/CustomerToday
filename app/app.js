@@ -5,14 +5,17 @@ if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
     reviews: function () {
-      var today = moment().startOf('day'),
-          tomorrow = moment(today).add(1, 'days'),
+      var today = moment(today).add(-1, 'days'),
+          tomorrow = moment().startOf('day'),
           reviewList = userReview.find({
               date: {
                 $gte: today.toDate(),
                 $lt: tomorrow.toDate()
               }
           } , {sort: {date: -1}});
+
+        console.log(today);
+        console.log(tomorrow);
 
       return reviewList;
     }
@@ -22,7 +25,7 @@ if (Meteor.isClient) {
     var s = Snap("#svg");
     // Lets create big circle in the middle:
     Snap.load('icon.svg', function (f) {
-      f.selectAll("polygon[fill='#09B39C']").attr({fill: "#bada55"});
+      f.selectAll("polygon[fill='red']").attr({fill: "red"});
       s.append(f);
     })
   });
