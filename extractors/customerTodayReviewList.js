@@ -1,5 +1,7 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+  _ = require('lodash');
 var Schema = mongoose.Schema;
+
 
 var userReviewSchema = new Schema({
   reviewId: { type:String, unique: true},
@@ -8,7 +10,8 @@ var userReviewSchema = new Schema({
   name: String,
   email: String,
   platform: String,
-  ratings: {}
+  ratings: {},
+  averageRating: Number
 });
 
 mongoose.connect('mongodb://localhost/customertoday');
@@ -16,7 +19,20 @@ mongoose.connect('mongodb://localhost/customertoday');
 var userReviewModel = mongoose.model('userReview', userReviewSchema);
 
 exports.addReview = function (userReview) {
-  console.log('insertReview');
+
+  if (userReview.ratings) {
+    var averageRating = 0,
+        numberOfRatings = 0;
+    _.forEach(userReview.ratings, function(value, key) {
+      averageRating = averageRating + parseInt(value);
+      numberOfRatings++;
+    });
+
+    averageRating = averageRating/numberOfRatings;
+    if (averageRating) {
+        userReview.averageRating = _.round(averageRating, 2);
+    }
+  }
   var userReview = new userReviewModel(userReview);
 
   userReview.save(function (err) {

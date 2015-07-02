@@ -5,6 +5,17 @@
 </head>
 
 <body>
+  <div class="mui-dropdown">
+    <button class="mui-btn mui-btn-primary" data-mui-toggle="dropdown">
+      Customer Today
+      <span class="mui-caret"></span>
+    </button>
+    <ul class="mui-dropdown-menu">
+      <li><a href="#">Customer Yesterday</a></li>
+      <li><a href="#">Customer Last Week</a></li>
+      <li><a href="#">Customer Last Month</a></li>
+    </ul>
+  </div>
   <div class="mui-container-fluid">
     <svg id="svg">
       {{> customerSvg}}
@@ -21,7 +32,8 @@
 
 <template name="review">
   <div class="mui-panel">
-    <small>{{ratings}}</small>
+    <small>{{averageRating}}</small>
+    <small>{{platform}}</small>
     <small>{{date}}</small>
     <p>{{body}}</p>
   </div>
