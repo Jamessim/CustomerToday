@@ -3,7 +3,7 @@ var _ = require('lodash'),
     request = require('request'),
     Promise = require('bluebird'),
     moment = require('moment'),
-    addReview = require('./customerTodayReviewList'),
+    customerTodayReviewList = require('./customerTodayReviewList'),
     get = Promise.promisify(request.get);
 
 get(config.get('Android.request'))
@@ -15,19 +15,21 @@ get(config.get('Android.request'))
             userReview = _.pick(userReview, ['body', 'date', 'rating']);
             userReview.platform = 'android';
             userReview.name = name;
-            userReview.reviewId = moment.utc(userReview.date).format() + '_' +
-                                    userReview.platform;
+            userReview.reviewId = moment(new Date(userReview.date)).utc().format() +
+                                    '_' + name.replace(' ', '') +
+                                    '_' + userReview.platform;
             userReview.email = '';
             userReview.rating = {'android': userReview.rating};
             return userReview;
         });
     })
     .then(function(reviews) {
-        console.log(reviews);
-
         _.each(reviews, function(review) {
-            //addReview(review);
-            console.log(review.rating);
+            customerTodayReviewList.addReview(review);
         });
+        process.exit(0);
     })
-    .error(console.error);
+    .error(function(e) {
+        console.error(e);
+        process.exit(1);
+    });

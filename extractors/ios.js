@@ -21,5 +21,9 @@ get(config.get('iOS.request'))
         _.each(reviews, function(review) {
             customerTodayReviewList.addReview(review);
         });
+        process.exit(0);
     })
-    .error(console.error);
+    .error(function(e) {
+        console.error(e);
+        process.exit(1);
+    });
