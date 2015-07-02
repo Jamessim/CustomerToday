@@ -21,12 +21,20 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.body.events({
+    "click #dropdown2 > li": function (event) {
+      console.log('dropdown cliked');
+    },
+  });
+
   Template.customerSvg.onRendered(function() {
     var s = Snap("#svg");
     // Lets create big circle in the middle:
     Snap.load('icon.svg', function (f) {
       f.selectAll("polygon[fill='red']").attr({fill: "red"});
       s.append(f);
-    })
+    });
   });
+
+
 }
