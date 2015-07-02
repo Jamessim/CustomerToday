@@ -3,10 +3,13 @@ var customerTodayReviewList = require('./customerTodayReviewList'),
     _ = require('lodash');
     https = require('https');
 
+
+console.log(process.env.TYPE_FORM_UID);
+console.log(process.env.TYPE_FORM_KEY);
 function getTypeFormReviewRawData(callback) {
     return https.get({
         host: 'api.typeform.com',
-        path: '/v0/form/'+UID+'?key='+TYPE_FORM_KEY+'&completed=true&limit=10'
+        path: '/v0/form/'+process.env.TYPE_FORM_UID+'?key='+process.env.TYPE_FORM_KEY+'&completed=true&limit=10'
     }, function(response) {
         // Continuously update stream with data
         var body = '';
