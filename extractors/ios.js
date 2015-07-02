@@ -13,7 +13,7 @@ get(config.get('iOS.request'))
             userReview.platform = 'ios';
             userReview.reviewId = userReview.date + '_' + userReview.platform;
             userReview.email = '';
-            userReview.rating = {'ios': userReview.rating};
+            userReview.ratings = {'ios': userReview.rating};
             return userReview;
         });
     })
