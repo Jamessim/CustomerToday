@@ -1,24 +1,31 @@
 <head>
   <title>Customer Today</title>
+  <link href="//cdn.muicss.com/mui-0.1.14/css/mui.min.css" rel="stylesheet" type="text/css" />
+  <script src="//cdn.muicss.com/mui-0.1.14/js/mui.min.js"></script>
 </head>
 
 <body>
-  <div class="container">
-    <header>
-      <h1>Reviews List</h1>
-    </header>
-
-    <ul>
-      {{#each reviews}}
-        {{> review}}
-      {{/each}}
-    </ul>
+  <div class="mui-container-fluid">
+    <svg id="svg">
+      {{> customerSvg}}
+    </svg>
+    <section class="randomReviews">
+      <ul>
+        {{#each reviews}}
+          {{> review}}
+        {{/each}}
+      </ul>
+    </section>
   </div>
 </body>
 
 <template name="review">
-  <section>
+  <div class="mui-panel">
     <small>{{ratings}}</small>
+    <small>{{date}}</small>
     <p>{{body}}</p>
-  </section>
+  </div>
+</template>
+
+<template name="customerSvg">
 </template>

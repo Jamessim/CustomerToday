@@ -1,1 +1,9 @@
 /* CSS declarations go here */
+.mui-container-fluid {
+  display: flex;
+}
+
+
+.randomReviews {
+  width: 100%;
+}
