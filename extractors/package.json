@@ -1,0 +1,21 @@
+{
+  "name": "extractors",
+  "version": "1.0.0",
+  "description": "",
+  "main": "insertMongo.js",
+  "dependencies": {
+    "bluebird": "^2.9.30",
+    "config": "^1.14.0",
+    "lodash": "^3.10.0",
+    "moment": "^2.10.3",
+    "mongoose": "^4.0.6",
+    "oauth": "^0.9.13",
+    "request": "^2.58.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,20 @@
+{
+    "Android": {
+        "request": {
+            "url": "https://gplaystore.p.mashape.com/applicationReviews?id=com.redmart.redmart",
+            "headers": {
+                "X-Mashape-Key": "IGsvTpFedKmshcbAKTYRmA2aBlHkp1Xmklgjsn2g0RC4byMW9A"
+            }
+        }
+    },
+    "iOS": {
+        "request": {
+            "url": "https://itunes.apple.com/WebObjects/MZStore.woa/wa/userReviewsRow?id=606780396&displayable-kind=11&startIndex=0&endIndex=100&sort=4&appVersion=all",
+            "headers": {
+                "X-Apple-Store-Front": "143464-2,28",
+                "X-Apple-Tz": "28800",
+                "X-Dsid": "191769267"
+            }
+        }
+    }
+}
