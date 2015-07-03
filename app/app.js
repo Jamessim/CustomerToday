@@ -96,7 +96,7 @@ function getReviews(id) {
     var newRatingReviews = [];
     _.each(review.ratings, function(value, key) {
       newRatingReviews.push({
-        key: key,
+        key: key === 'undefined' ? "Rating" : key,
         value: value
       });
     });
