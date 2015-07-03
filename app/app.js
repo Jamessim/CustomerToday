@@ -1,36 +1,21 @@
 // simple-todos.js
 userReview = new Mongo.Collection("userreviews");
-var CURRENT_PAGE_ID_META = 'currentPage';
 var CURRENT_PAGE_ID = 1;
 
 if (Meteor.isClient) {
-  // This code only runs on the client
-  Template.body.helpers({
-    reviews: function () {
-      var today = moment(today).add(-1, 'days'),
-          tomorrow = moment().startOf('day'),
-          reviewList = userReview.find({
-              date: {
-                $gte: today.toDate(),
-                $lt: tomorrow.toDate()
-              }
-          } , {sort: {date: -1}});
-      return reviewList;
-    }
-  });
 
-  Template.body.events({
-    "click #dropdown2 > li": function (event) {
-      var range = $(event.target).attr('href');
-      var today = moment(today).add(-1, 'days'),
-          tomorrow = moment().startOf('day'),
-          reviewList = userReview.find({
-              date: {
-                $gte: today.toDate(),
-                $lt: tomorrow.toDate()
-              }
-          } , {sort: {date: -1}});
-      // Router.go('customerFeed', range);
+  Template.navigation.events({
+    "click .btn.left": function (event) {
+      CURRENT_PAGE_ID++;
+      Router.go('/customer/'+CURRENT_PAGE_ID+'');
+    },
+    "click .btn.right": function (event) {
+      CURRENT_PAGE_ID--;
+      if (CURRENT_PAGE_ID === 0) {
+        Router.go('/');
+      } else {
+         Router.go('/customer/'+CURRENT_PAGE_ID+'');
+      }
     },
   });
 
@@ -59,9 +44,7 @@ Router.route('/customer/:_id', {
 if (Meteor.isClient) {
   ApplicationController = RouteController.extend({
     layoutTemplate: 'AppLayout',
-
     onBeforeAction: function () {
-      Session.set(CURRENT_PAGE_ID_META, CURRENT_PAGE_ID++);
       this.next();
     }
   });
@@ -79,7 +62,6 @@ if (Meteor.isClient) {
 
       templateData = { reviews: reviewList };
       return templateData;
-      return reviewList;
     },
     action: function () {
       this.render('Home');
