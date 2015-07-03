@@ -33,7 +33,7 @@ if (Meteor.isClient) {
   UI.registerHelper("timeAgo", function(datetime, format) {
     if (moment) {
       // can use other formats like 'lll' too
-      return moment(datetime).startOf('day').fromNow();;
+      return moment(datetime).startOf('day').fromNow();
 
     }
     else {
@@ -86,12 +86,7 @@ function getReviews(id) {
     tomorrow = moment().subtract(id-1, 'days'),
     overallReview = 0,
     counter = 0,
-    reviewList = userReview.find({
-        date: {
-          $gte: today.toDate(),
-          $lt: tomorrow.toDate()
-        }
-    } , {sort: {date: -1}}),
+    reviewList = userReview.find({} , {sort: {date: -1}}),
     parsedReviewList = [];
 
   console.log(today.toDate());
