@@ -107,7 +107,7 @@ function getReviews(id) {
     });
 
     review.ratings = newRatingReviews;
-    review.ratingImage = getMoodBasedOnRatings(overallReview, 'color');
+    review.ratingImage = getMoodBasedOnRatings(review.averageRating, 'color');
     // console.log('---------------------');
     // console.log(_.keys(review.ratings));
     // console.log(_.values(review.ratings));

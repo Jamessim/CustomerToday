@@ -80,6 +80,15 @@ body {
   border-radius: 2px;
 }
 
+.randomReviews .card-panel .footer .via {
+  float: right;
+  padding: 10px;
+  margin: 0;
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
 .card-panel > .row {
   padding-top: 10px;
 }
