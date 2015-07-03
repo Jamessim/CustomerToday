@@ -10,3 +10,4 @@ insecure
 jeremy:snapsvg
 momentjs:moment
 materialize:materialize
+iron:router

@@ -1,5 +1,7 @@
 // simple-todos.js
 userReview = new Mongo.Collection("userreviews");
+var CURRENT_PAGE_ID_META = 'currentPage';
+var CURRENT_PAGE_ID = 1;
 
 if (Meteor.isClient) {
   // This code only runs on the client
@@ -13,17 +15,22 @@ if (Meteor.isClient) {
                 $lt: tomorrow.toDate()
               }
           } , {sort: {date: -1}});
-
-        console.log(today);
-        console.log(tomorrow);
-
       return reviewList;
     }
   });
 
   Template.body.events({
     "click #dropdown2 > li": function (event) {
-      console.log('dropdown cliked');
+      var range = $(event.target).attr('href');
+      var today = moment(today).add(-1, 'days'),
+          tomorrow = moment().startOf('day'),
+          reviewList = userReview.find({
+              date: {
+                $gte: today.toDate(),
+                $lt: tomorrow.toDate()
+              }
+          } , {sort: {date: -1}});
+      // Router.go('customerFeed', range);
     },
   });
 
@@ -37,4 +44,64 @@ if (Meteor.isClient) {
   });
 
 
+}
+
+
+Router.route('/', {
+  name: 'home'
+});
+
+Router.route('/customer/:_id', {
+  controller: 'CustomerFeedback',
+  action: 'show'
+});
+
+if (Meteor.isClient) {
+  ApplicationController = RouteController.extend({
+    layoutTemplate: 'AppLayout',
+
+    onBeforeAction: function () {
+      Session.set(CURRENT_PAGE_ID_META, CURRENT_PAGE_ID++);
+      this.next();
+    }
+  });
+
+  HomeController = ApplicationController.extend({
+    data: function () {
+      var today = moment(today).add(-1, 'days'),
+          tomorrow = moment().startOf('day'),
+          reviewList = userReview.find({
+              date: {
+                $gte: today.toDate(),
+                $lt: tomorrow.toDate()
+              }
+          } , {sort: {date: -1}});
+
+      templateData = { reviews: reviewList };
+      return templateData;
+      return reviewList;
+    },
+    action: function () {
+      this.render('Home');
+    }
+  });
+
+  CustomerFeedback = ApplicationController.extend({
+    data: function () {
+      var today = moment(today).add(-this.params._id, 'days'),
+          tomorrow = moment().startOf('day'),
+          reviewList = userReview.find({
+              date: {
+                $gte: today.toDate(),
+                $lt: tomorrow.toDate()
+              }
+          } , {sort: {date: -1}});
+
+      templateData = { reviews: reviewList };
+      return templateData;
+    },
+    show: function () {
+      this.render('CustomerFeed');
+    }
+  });
 }

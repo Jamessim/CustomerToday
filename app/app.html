@@ -3,6 +3,10 @@
 </head>
 
 <body>
+</body>
+
+<template name="AppLayout">
+  {{> navigation}}
   <div class="container">
     <div class="row">
 
@@ -10,27 +14,37 @@
         <div id="svg" class="angry">
           {{> customerSvg}}
         </div>
-        <ul id="dropdown2" class="dropdown-content">
-          <li><a href="#!">Customer Yesterday</a></li>
-          <li><a href="#!">Customer Last Week</a></li>
-          <li><a href="#!">Customer Last Month</a></li>
-        </ul>
-        <a class="btn dropdown-button" href="#!" data-activates="dropdown2">Customer Today<i class="mdi-navigation-arrow-drop-down right"></i></a>
       </div>
 
       <div class="col s12 m8 l9"> <!-- Note that "m8 l9" was added -->
-        <section class="randomReviews">
-          <ul>
-            {{#each reviews}}
-              {{> review}}
-            {{/each}}
-          </ul>
-        </section>
+        {{> yield}}
       </div>
 
     </div>
   </div>
-</body>
+</template>
+
+<template name="Home">
+  <section class="randomReviews">
+    <ul>
+      {{#each reviews}}
+        {{> review}}
+      {{/each}}
+    </ul>
+  </section>
+</template>
+
+
+<template name="CustomerFeed">
+  <section class="randomReviews">
+    <ul>
+      {{#each reviews}}
+        {{> review}}
+      {{/each}}
+    </ul>
+  </section>
+</template>
+
 
 <template name="review">
   <div class="card-panel">
@@ -41,6 +55,14 @@
   </div>
 </template>
 
-
 <template name="customerSvg">
+</template>
+
+<template name="navigation">
+  <nav>
+   <div class="nav-wrapper">
+     <a class="btn waves-effect waves-light left" href={{previousPage}} >Previous Day</a>
+     <a class="btn waves-effect waves-light right" href={{nextPage}} >Next Day</a>
+   </div>
+ </nav>
 </template>
