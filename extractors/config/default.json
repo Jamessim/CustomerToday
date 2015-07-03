@@ -1,31 +1,31 @@
 {
     "Android": {
         "page1": {
-            "url": "https://gplaystore.p.mashape.com/applicationReviews?id=com.redmart.redmart&page=1",
+            "url": "https://gplaystore.p.mashape.com/applicationReviews?id=com.redmart.redmart&lang=en-us&page=1",
             "headers": {
                 "X-Mashape-Key": "IGsvTpFedKmshcbAKTYRmA2aBlHkp1Xmklgjsn2g0RC4byMW9A"
             }
         },
         "page2": {
-            "url": "https://gplaystore.p.mashape.com/applicationReviews?id=com.redmart.redmart&page=2",
+            "url": "https://gplaystore.p.mashape.com/applicationReviews?id=com.redmart.redmart&lang=en-us&page=2",
             "headers": {
                 "X-Mashape-Key": "IGsvTpFedKmshcbAKTYRmA2aBlHkp1Xmklgjsn2g0RC4byMW9A"
             }
         },
         "page3": {
-            "url": "https://gplaystore.p.mashape.com/applicationReviews?id=com.redmart.redmart&page=3",
+            "url": "https://gplaystore.p.mashape.com/applicationReviews?id=com.redmart.redmart&lang=en-us&page=3",
             "headers": {
                 "X-Mashape-Key": "IGsvTpFedKmshcbAKTYRmA2aBlHkp1Xmklgjsn2g0RC4byMW9A"
             }
         },
         "page4": {
-            "url": "https://gplaystore.p.mashape.com/applicationReviews?id=com.redmart.redmart&page=4",
+            "url": "https://gplaystore.p.mashape.com/applicationReviews?id=com.redmart.redmart&lang=en-us&page=4",
             "headers": {
                 "X-Mashape-Key": "IGsvTpFedKmshcbAKTYRmA2aBlHkp1Xmklgjsn2g0RC4byMW9A"
             }
         },
         "page5": {
-            "url": "https://gplaystore.p.mashape.com/applicationReviews?id=com.redmart.redmart&page=5",
+            "url": "https://gplaystore.p.mashape.com/applicationReviews?id=com.redmart.redmart&lang=en-us&page=5",
             "headers": {
                 "X-Mashape-Key": "IGsvTpFedKmshcbAKTYRmA2aBlHkp1Xmklgjsn2g0RC4byMW9A"
             }

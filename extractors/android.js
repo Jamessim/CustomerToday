@@ -22,10 +22,10 @@ Promise.props({
             reviewData = {
                 reviewId: userReview.date + '_' + userReview.author.name + '_android',
                 body:  userReview.body,
-                date: new Date(userReview.date).toISOString(),
+                date: userReview.date,
                 name: userReview.author.name,
                 email: userReview.email || 'none',
-                platform: 'Google Play',
+                platform: 'Google Play Store',
                 ratings: {'android': userReview.rating}
             };
             reviewData.reviewId = reviewData.reviewId
