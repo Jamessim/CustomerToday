@@ -7,23 +7,32 @@ var _ = require('lodash'),
 
 get(config.get('iOS.request'))
     .spread(function(res) {
+        var reviewData;
         res = JSON.parse(res.body);
         return _.map(res.userReviewList, function(userReview) {
-            userReview = _.pick(userReview, ['body', 'date', 'name', 'rating']);
-            userReview.platform = 'ios';
-            userReview.reviewId = userReview.date + '_' + userReview.platform;
-            userReview.email = '';
-            userReview.ratings = {'ios': userReview.rating};
-            return userReview;
+            reviewData = {
+                reviewId: userReview.date + '_ios',
+                body:  userReview.body,
+                date: userReview.date,
+                name: userReview.name,
+                email: userReview.email || 'none',
+                platform: 'ios',
+                ratings: {'ios': userReview.rating}
+            };
+            return reviewData;
         });
     })
     .then(function(reviews) {
+        var saves = [];
         _.each(reviews, function(review) {
-            customerTodayReviewList.addReview(review);
+            saves.push(customerTodayReviewList.addReview(review));
         });
-        process.exit(0);
+        return Promise.all(saves)
+            .then(function() {
+                process.exit(0);
+            });
     })
-    .error(function(e) {
+    .catch(function(e) {
         console.error(e);
         process.exit(1);
     });

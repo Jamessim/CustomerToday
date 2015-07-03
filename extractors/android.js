@@ -8,28 +8,34 @@ var _ = require('lodash'),
 
 get(config.get('Android.request'))
     .spread(function(res) {
-        var name;
+        var reviewData;
         res = JSON.parse(res.body);
         return _.map(res, function(userReview) {
-            name = userReview.author.name;
-            userReview = _.pick(userReview, ['body', 'date', 'rating']);
-            userReview.platform = 'android';
-            userReview.name = name;
-            userReview.reviewId = moment(new Date(userReview.date)).utc().format() +
-                                    '_' + name.replace(' ', '') +
-                                    '_' + userReview.platform;
-            userReview.email = '';
-            userReview.rating = {'android': userReview.rating};
-            return userReview;
+            reviewData = {
+                reviewId: userReview.date + '_' + userReview.author.name + '_ios',
+                body:  userReview.body,
+                date: new Date(userReview.date).toISOString(),
+                name: userReview.author.name,
+                email: userReview.email || 'none',
+                platform: 'android',
+                ratings: {'android': userReview.rating}
+            };
+            reviewData.reviewId = reviewData.reviewId
+                                    .replace(/\s/g, '').replace(',', '_');
+            return reviewData;
         });
     })
     .then(function(reviews) {
+        var saves = [];
         _.each(reviews, function(review) {
-            customerTodayReviewList.addReview(review);
+            saves.push(customerTodayReviewList.addReview(review));
         });
-        process.exit(0);
+        return Promise.all(saves)
+            .then(function() {
+                process.exit(0);
+            });
     })
-    .error(function(e) {
+    .catch(function(e) {
         console.error(e);
         process.exit(1);
     });
