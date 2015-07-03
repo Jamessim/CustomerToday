@@ -1,6 +1,7 @@
 // simple-todos.js
-userReview = new Mongo.Collection("userreviews");
+var userReview = new Mongo.Collection("userreviews");
 var CURRENT_PAGE_ID = 1;
+var moodList = ['irritated', 'disappointed', 'justok', 'happy', 'excited'];
 
 if (Meteor.isClient) {
 
@@ -27,8 +28,6 @@ if (Meteor.isClient) {
       s.append(f);
     });
   });
-
-
 }
 
 
@@ -53,6 +52,8 @@ if (Meteor.isClient) {
     data: function () {
       var today = moment(today).add(-1, 'days'),
           tomorrow = moment().startOf('day'),
+          overallReview = 0,
+          counter = 0,
           reviewList = userReview.find({
               date: {
                 $gte: today.toDate(),
@@ -60,7 +61,20 @@ if (Meteor.isClient) {
               }
           } , {sort: {date: -1}});
 
-      templateData = { reviews: reviewList };
+        reviewList.forEach(function(review) {
+          if (review.averageRating) {
+            overallReview = overallReview + parseInt(review.averageRating);
+            counter++;
+          }
+        });
+
+      overallReview = parseInt(overallReview/counter);
+
+      templateData = {
+        overallReview: overallReview,
+        overallMood: moodList[Math.round(overallReview)-1],
+        reviews: reviewList
+        };
       return templateData;
     },
     action: function () {

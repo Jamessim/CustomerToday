@@ -26,6 +26,9 @@
 
 <template name="Home">
   <section class="randomReviews">
+    <p>{{overallReview}}</p>
+    <p>{{overallMood}}</p>
+
     <ul>
       {{#each reviews}}
         {{> review}}
@@ -37,6 +40,8 @@
 
 <template name="CustomerFeed">
   <section class="randomReviews">
+    <p>{{overallReview}}</p>
+
     <ul>
       {{#each reviews}}
         {{> review}}

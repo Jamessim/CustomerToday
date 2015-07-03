@@ -11,3 +11,6 @@ jeremy:snapsvg
 momentjs:moment
 materialize:materialize
 iron:router
+dburles:collection-helpers
+meteorhacks:aggregate
+stevezhu:lodash
