@@ -14,3 +14,4 @@ iron:router
 dburles:collection-helpers
 meteorhacks:aggregate
 stevezhu:lodash
+fastclick
