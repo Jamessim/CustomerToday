@@ -20,6 +20,10 @@ var userReviewModel = mongoose.model('userReview', userReviewSchema);
 
 exports.addReview = function (userReview) {
 
+    if (userReview.date) {
+        userReview.date = new Date(Date.parse(userReview.date));
+    }
+
   if (userReview.ratings) {
     var averageRating = 0,
         numberOfRatings = 0;
