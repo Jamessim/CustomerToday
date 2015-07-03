@@ -35,7 +35,7 @@ exports.addReview = function (userReview) {
   }
   var userReview = new userReviewModel(userReview);
 
-  userReview.save(function (err) {
+  return userReview.save(function (err) {
     if (err) return console.log(err);
     return "Success!";
   });
