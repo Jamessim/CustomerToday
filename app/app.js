@@ -86,7 +86,12 @@ function getReviews(id) {
     tomorrow = moment().subtract(id-1, 'days'),
     overallReview = 0,
     counter = 0,
-    reviewList = userReview.find({} , {sort: {date: -1}}),
+    reviewList = userReview.find({
+        date: {
+          $gte: today.toDate(),
+          $lt: tomorrow.toDate()
+        }
+    } , {sort: {date: -1}}),
     parsedReviewList = [];
 
   console.log(today.toDate());
