@@ -1,7 +1,7 @@
 // simple-todos.js
 var userReview = new Mongo.Collection("userreviews");
 var CURRENT_PAGE_ID = 1;
-var moodList = ['irritated', 'disappointed', 'justok', 'happy', 'excited'];
+var moodList = ['irritated', 'disappointed', 'just ok', 'happy', 'excited'];
 
 if (Meteor.isClient) {
 
@@ -51,32 +51,7 @@ if (Meteor.isClient) {
 
   HomeController = ApplicationController.extend({
     data: function () {
-      var today = moment(today).add(-1, 'days'),
-          tomorrow = moment().startOf('day'),
-          overallReview = 0,
-          counter = 0,
-          reviewList = userReview.find({
-              date: {
-                $gte: today.toDate(),
-                $lt: tomorrow.toDate()
-              }
-          } , {sort: {date: -1}});
-
-        reviewList.forEach(function(review) {
-          if (review.averageRating) {
-            overallReview = overallReview + parseInt(review.averageRating);
-            counter++;
-          }
-        });
-
-      overallReview = parseInt(overallReview/counter);
-
-      templateData = {
-        overallReview: overallReview,
-        overallMood: moodList[Math.round(overallReview)-1],
-        reviews: reviewList
-        };
-      return templateData;
+      return getReviews(1)
     },
     action: function () {
       this.render('Home');
@@ -85,35 +60,57 @@ if (Meteor.isClient) {
 
   CustomerFeedback = ApplicationController.extend({
     data: function () {
-      var today = moment(today).add(-this.params._id, 'days'),
-          tomorrow = moment().startOf('day'),
-          overallReview = 0,
-          counter = 0,
-          reviewList = userReview.find({
-              date: {
-                $gte: today.toDate(),
-                $lt: tomorrow.toDate()
-              }
-          } , {sort: {date: -1}});
-
-      reviewList.forEach(function(review) {
-          if (review.averageRating) {
-            overallReview = overallReview + parseInt(review.averageRating);
-            counter++;
-          }
-        });
-
-      overallReview = parseInt(overallReview/counter);
-
-      templateData = {
-        overallReview: overallReview,
-        overallMood: moodList[Math.round(overallReview)-1],
-        reviews: reviewList
-        };
-      return templateData;
+      return getReviews(this.params._id);
     },
     show: function () {
       this.render('CustomerFeed');
     }
   });
+}
+
+
+function getReviews(id) {
+  var today = moment().subtract(id, 'days');
+    tomorrow = moment().subtract(id-1, 'days'),
+    overallReview = 0,
+    counter = 0,
+    reviewList = userReview.find({
+        date: {
+          $gte: today.toDate(),
+          $lt: tomorrow.toDate()
+        }
+    } , {sort: {date: -1}});
+
+  console.log(today.toDate());
+  console.log(tomorrow.toDate());
+
+reviewList.forEach(function(review) {
+    if (review.averageRating) {
+      overallReview = overallReview + parseInt(review.averageRating);
+      counter++;
+    }
+  });
+
+overallReview = parseInt(overallReview/counter);
+var overallMood = moodList[Math.round(overallReview)-1],
+  overallMoodImage = '/03justOk-white.png';
+
+if (overallMood === 'irritated') {
+
+} else if (overallMood === 'disappointed') {
+
+} else if (overallMood === 'happy') {
+
+} else if (overallMood === 'excited') {
+
+} else {
+
+}
+
+return {
+  overallReview: overallReview,
+  overallMood: overallMood,
+  overallMoodImage: overallMoodImage,
+  reviews: reviewList
+  };
 }

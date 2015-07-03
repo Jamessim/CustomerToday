@@ -9,6 +9,13 @@ body {
 
 .randomReviews {
   width: 100%;
+  text-align: center;
+  padding: 25px;
+}
+
+.randomReviews img {
+  width: 100%;
+  max-width: 250px;
 }
 
 .angry svg {
@@ -38,6 +45,13 @@ nav {
 
 .nav-wrapper .btn.right {
   border-left: 1px solid #E5001A;
+}
+
+.customerStatus {
+  font-size: 2.2em;
+  color: #ddd;
+  font-weight: 200;
+  text-align: center;
 }
 
 
