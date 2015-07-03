@@ -84,6 +84,7 @@ if (Meteor.isClient) {
 function getReviews(id) {
   var today = moment().subtract(id, 'days');
     tomorrow = moment().subtract(id-1, 'days'),
+    customerFeedDay = moment().subtract(id-1, 'days').calendar(),
     overallReview = 0,
     counter = 0,
     reviewList = userReview.find({
@@ -93,6 +94,13 @@ function getReviews(id) {
         }
     } , {sort: {date: -1}}),
     parsedReviewList = [];
+
+  try {
+    customerFeedDay = customerFeedDay.split('at');
+    customerFeedDay = customerFeedDay[0];  
+  } catch (e) {
+
+  }
 
   console.log(today.toDate());
   console.log(tomorrow.toDate());
@@ -127,6 +135,7 @@ function getReviews(id) {
   return {
     overallReview: overallReview,
     overallMood: overallMood,
+    customerFeedDay: customerFeedDay,
     overallMoodImage: overallMoodImage,
     reviews: parsedReviewList
   };
