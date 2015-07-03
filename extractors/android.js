@@ -2,22 +2,30 @@ var _ = require('lodash'),
     config = require('config'),
     request = require('request'),
     Promise = require('bluebird'),
-    moment = require('moment'),
     customerTodayReviewList = require('./customerTodayReviewList'),
     get = Promise.promisify(request.get);
 
-get(config.get('Android.request'))
-    .spread(function(res) {
-        var reviewData;
-        res = JSON.parse(res.body);
-        return _.map(res, function(userReview) {
+Promise.props({
+        page1: get(config.get('Android.page1')),
+        page2: get(config.get('Android.page2'))
+    })
+    .then(function(res) {
+        var data = [];
+        _.each(res, function(req, key) {
+            req = JSON.parse(req[0].body);
+            data = data.concat(req);
+        });
+        return data;
+    })
+    .then(function(data) {
+        return _.map(data, function(userReview) {
             reviewData = {
                 reviewId: userReview.date + '_' + userReview.author.name + '_android',
                 body:  userReview.body,
                 date: new Date(userReview.date).toISOString(),
                 name: userReview.author.name,
                 email: userReview.email || 'none',
-                platform: 'Google Play Store',
+                platform: 'Google Play',
                 ratings: {'android': userReview.rating}
             };
             reviewData.reviewId = reviewData.reviewId
