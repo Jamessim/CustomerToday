@@ -12,12 +12,12 @@ get(config.get('Android.request'))
         res = JSON.parse(res.body);
         return _.map(res, function(userReview) {
             reviewData = {
-                reviewId: userReview.date + '_' + userReview.author.name + '_ios',
+                reviewId: userReview.date + '_' + userReview.author.name + '_android',
                 body:  userReview.body,
                 date: new Date(userReview.date).toISOString(),
                 name: userReview.author.name,
                 email: userReview.email || 'none',
-                platform: 'android',
+                platform: 'Google Play Store',
                 ratings: {'android': userReview.rating}
             };
             reviewData.reviewId = reviewData.reviewId

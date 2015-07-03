@@ -11,13 +11,13 @@ get(config.get('iOS.request'))
         res = JSON.parse(res.body);
         return _.map(res.userReviewList, function(userReview) {
             reviewData = {
-                reviewId: userReview.date + '_ios',
+                reviewId: userReview.date + '_appStore',
                 body:  userReview.body,
                 date: userReview.date,
                 name: userReview.name,
                 email: userReview.email || 'none',
-                platform: 'ios',
-                ratings: {'ios': userReview.rating}
+                platform: 'App Store',
+                ratings: {'iOS': userReview.rating}
             };
             return reviewData;
         });

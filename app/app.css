@@ -74,7 +74,10 @@ body {
 }
 
 .randomReviews .card-panel .footer li .ratingNumber {
-  
+  background-color: #FF7E00;
+  padding: 1px 3px;
+  color: #fff;
+  border-radius: 2px;
 }
 
 .card-panel > .row {

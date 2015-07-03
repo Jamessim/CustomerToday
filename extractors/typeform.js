@@ -49,7 +49,7 @@ function cleanUpAndInsert(parsed) {
         date: metadata.date_submit,
         name: response.answers.textfield_1014384,
         email: response.answers.email_1014385,
-        platform: (metadata.platform === 'other' ? 'desktop' :metadata.platform) + '_typeform',
+        platform: 'TypeForm ' + (metadata.platform === ' other' ? 'desktop' :metadata.platform),
         ratings: {}
       };
 
