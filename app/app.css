@@ -1,8 +1,11 @@
 /* CSS declarations go here */
-.mui-container-fluid {
-  display: flex;
+body {
+  background: #ee4054;
+  -webkit-animation: fadeIt 0.5s ease; /* Safari 4+ */
+  -moz-animation:    fadeIt 0.5s ease; /* Fx 5+ */
+  -o-animation:      fadeIt 0.5s ease; /* Opera 12+ */
+  animation:         fadeIt 0.5s ease;
 }
-
 
 .randomReviews {
   width: 100%;
@@ -14,6 +17,11 @@
   background-color: #FF9B9F;
 }
 
+nav {
+    box-shadow: none;
+    background: #ee4054;
+    border-bottom: 1px solid #E5001A;
+}
 
 .nav-wrapper .btn {
   height: 100%;
@@ -25,9 +33,27 @@
 }
 
 .nav-wrapper .btn.left {
-  border-right: 1px solid #FC0606;
+  border-right: 1px solid #E5001A;
 }
 
 .nav-wrapper .btn.right {
-  border-left: 1px solid #FC0606;
+  border-left: 1px solid #E5001A;
+}
+
+
+@-webkit-keyframes fadeIt {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes fadeIt {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes fadeIt {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes fadeIt {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
 }

@@ -8,46 +8,17 @@
 <template name="AppLayout">
   {{> navigation}}
   <div class="container">
-    <div class="row">
-
-      <div class="col s12 m4 l3">
-        <div id="svg" class="angry">
-          {{> customerSvg}}
-        </div>
-      </div>
-
-      <div class="col s12 m8 l9"> <!-- Note that "m8 l9" was added -->
-        {{> yield}}
-      </div>
-
-    </div>
+    {{> yield}}
   </div>
 </template>
 
 <template name="Home">
-  <section class="randomReviews">
-    <p>{{overallReview}}</p>
-    <p>{{overallMood}}</p>
-
-    <ul>
-      {{#each reviews}}
-        {{> review}}
-      {{/each}}
-    </ul>
-  </section>
+  {{> reviewList}}
 </template>
 
 
 <template name="CustomerFeed">
-  <section class="randomReviews">
-    <p>{{overallReview}}</p>
-
-    <ul>
-      {{#each reviews}}
-        {{> review}}
-      {{/each}}
-    </ul>
-  </section>
+  {{> reviewList}}
 </template>
 
 
@@ -60,6 +31,24 @@
   </div>
 </template>
 
+<template name="reviewList">
+  <section class="randomReviews row">
+    <div class="col s12 m4 l3">
+      <p>{{overallReview}}</p>
+      <p>{{overallMood}}</p>
+    </div>
+
+    <div class="col s12 m8 l9">
+      <ul>
+        {{#each reviews}}
+          {{> review}}
+        {{/each}}
+      </ul>
+    </div>
+
+  </section>
+</template>
+
 <template name="customerSvg">
 </template>
 
@@ -67,7 +56,6 @@
   <nav>
    <div class="nav-wrapper">
      <a class="btn waves-effect waves-light left" href={{previousPage}} >Previous Day</a>
-     {{previousPage}}
      <a class="btn waves-effect waves-light right" href={{nextPage}} >Next Day</a>
    </div>
  </nav>

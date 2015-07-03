@@ -44,6 +44,7 @@ if (Meteor.isClient) {
   ApplicationController = RouteController.extend({
     layoutTemplate: 'AppLayout',
     onBeforeAction: function () {
+      $('.container').hide().fadeIn();
       this.next();
     }
   });
@@ -86,6 +87,8 @@ if (Meteor.isClient) {
     data: function () {
       var today = moment(today).add(-this.params._id, 'days'),
           tomorrow = moment().startOf('day'),
+          overallReview = 0,
+          counter = 0,
           reviewList = userReview.find({
               date: {
                 $gte: today.toDate(),
@@ -93,7 +96,20 @@ if (Meteor.isClient) {
               }
           } , {sort: {date: -1}});
 
-      templateData = { reviews: reviewList };
+      reviewList.forEach(function(review) {
+          if (review.averageRating) {
+            overallReview = overallReview + parseInt(review.averageRating);
+            counter++;
+          }
+        });
+
+      overallReview = parseInt(overallReview/counter);
+
+      templateData = {
+        overallReview: overallReview,
+        overallMood: moodList[Math.round(overallReview)-1],
+        reviews: reviewList
+        };
       return templateData;
     },
     show: function () {
