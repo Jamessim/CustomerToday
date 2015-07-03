@@ -18,6 +18,69 @@ body {
   max-width: 250px;
 }
 
+.randomReviews .card-panel {
+  position: relative;
+}
+
+.randomReviews .card-panel .emotion {
+  width: 65px;
+}
+
+.randomReviews .card-panel .comments {
+  text-align: left;
+  padding-left: 30px;
+  padding-bottom: 15px;
+  color: #555;
+  line-height: 1.6em;
+  quotes: "“" "”" "‘" "’";
+}
+/*
+.randomReviews .card-panel .comments:before, .randomReviews .card-panel .comments:after {
+  color: #ccc;
+  content: open-quote;
+  font-size: 2em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.2em;
+}
+
+.randomReviews .card-panel .comments:after {
+  content: close-quote;
+  margin-left: 0.15em;
+  margin-right: 0;
+}*/
+
+.randomReviews .card-panel .footer {
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 40px;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    border-top: 1px solid #ddd;
+    font-weight: 500;
+    padding: 2px;
+    padding-left: 12px;
+    color: #777;
+    font-size: 0.9em;
+}
+
+.randomReviews .card-panel .footer li {
+  list-style: none;
+  display: inline-block;
+  float: left;
+  padding: 7px;
+}
+
+.randomReviews .card-panel .footer li .ratingNumber {
+  
+}
+
+.card-panel > .row {
+  padding-top: 10px;
+}
+
 .angry svg {
   width: 200px;
   height: 200px;

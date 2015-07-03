@@ -24,21 +24,34 @@
 
 <template name="review">
   <div class="card-panel">
-    <small>{{averageRating}}</small>
-    <small>{{date}}</small>
-    <small>via {{platform}}</small>
-    <p>{{body}}</p>
+    <div class="row">
+      <div class="emotion col s2 m2 l2">
+        <img src={{ratingImage}} />
+      </div>
+      <div class="comments col s10 m10 l10">
+        {{body}}
+        <p><b>{{timeAgo date}}</b></p>
+      </div>
+    </div>
+    <div class="footer">
+      {{#each ratings}}
+        {{> ratingFooter}}
+      {{/each}}
+      <!-- <small>{{averageRating}}</small> -->
+      <!-- <small>{{timeAgo date}}</small> -->
+      <!-- <small>via {{platform}}</small> -->
+    </div>
   </div>
 </template>
 
 <template name="reviewList">
   <section class="randomReviews row">
-    <div class="col s12 m4 l3">
+    <div class="col s12 m4 l4">
       <img src={{overallMoodImage}} >
       <p class="customerStatus">Customers are {{overallMood}} today ...</p>
     </div>
 
-    <div class="col s12 m8 l9">
+    <div class="col s12 m8 l8">
       <ul>
         {{#each reviews}}
           {{> review}}
@@ -49,7 +62,8 @@
   </section>
 </template>
 
-<template name="customerSvg">
+<template name="ratingFooter">
+  <li><span>{{key}} </span><span class="ratingNumber"> {{value}}</span></li>
 </template>
 
 <template name="navigation">

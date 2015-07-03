@@ -19,14 +19,26 @@ if (Meteor.isClient) {
       }
     },
   });
+  //
+  // Template.customerSvg.onRendered(function() {
+  //   var s = Snap("#svg");
+  //   // Lets create big circle in the middle:
+  //   Snap.load('icon.svg', function (f) {
+  //     f.selectAll("polygon[fill='red']").attr({fill: "red"});
+  //     s.append(f);
+  //   });
+  // });
 
-  Template.customerSvg.onRendered(function() {
-    var s = Snap("#svg");
-    // Lets create big circle in the middle:
-    Snap.load('icon.svg', function (f) {
-      f.selectAll("polygon[fill='red']").attr({fill: "red"});
-      s.append(f);
-    });
+  // Use UI.registerHelper..
+  UI.registerHelper("timeAgo", function(datetime, format) {
+    if (moment) {
+      // can use other formats like 'lll' too
+      return moment(datetime).startOf('day').fromNow();;
+
+    }
+    else {
+      return datetime;
+    }
   });
 }
 
@@ -79,38 +91,60 @@ function getReviews(id) {
           $gte: today.toDate(),
           $lt: tomorrow.toDate()
         }
-    } , {sort: {date: -1}});
+    } , {sort: {date: -1}}),
+    parsedReviewList = [];
 
   console.log(today.toDate());
   console.log(tomorrow.toDate());
 
-reviewList.forEach(function(review) {
+  reviewList.forEach(function(review) {
+    var newRatingReviews = [];
+    _.each(review.ratings, function(value, key) {
+      newRatingReviews.push({
+        key: key,
+        value: value
+      });
+    });
+
+    review.ratings = newRatingReviews;
+    review.ratingImage = getMoodBasedOnRatings(overallReview, 'color');
+    // console.log('---------------------');
+    // console.log(_.keys(review.ratings));
+    // console.log(_.values(review.ratings));
+    // console.log('---------------------');
     if (review.averageRating) {
       overallReview = overallReview + parseInt(review.averageRating);
       counter++;
     }
+
+    parsedReviewList.push(review);
   });
 
-overallReview = parseInt(overallReview/counter);
-var overallMood = moodList[Math.round(overallReview)-1],
-  overallMoodImage = '/03justOk-white.png';
+  overallReview = parseInt(overallReview/counter);
+  var overallMood = moodList[Math.round(overallReview)-1];
+  var overallMoodImage = getMoodBasedOnRatings(overallReview, 'white');
 
-if (overallMood === 'irritated') {
-
-} else if (overallMood === 'disappointed') {
-
-} else if (overallMood === 'happy') {
-
-} else if (overallMood === 'excited') {
-
-} else {
-
+  return {
+    overallReview: overallReview,
+    overallMood: overallMood,
+    overallMoodImage: overallMoodImage,
+    reviews: parsedReviewList
+  };
 }
 
-return {
-  overallReview: overallReview,
-  overallMood: overallMood,
-  overallMoodImage: overallMoodImage,
-  reviews: reviewList
-  };
+
+function getMoodBasedOnRatings (rating, suffix) {
+  var mood = moodList[Math.round(rating)-1],
+    moodImage = '/03justOk-'+suffix+'.png';
+  if (mood === 'irritated') {
+    moodImage = '/01irritated-'+suffix+'.png';
+  } else if (mood === 'disappointed') {
+    moodImage = '/02disappointed-'+suffix+'.png';
+  } else if (mood === 'happy') {
+    moodImage = '/04happy-'+suffix+'.png';
+  } else if (mood === 'excited') {
+    moodImage = '/05excited-'+suffix+'.png';
+  }
+
+  return moodImage;
 }
